@@ -1,14 +1,26 @@
+.formularios_container{
+  margin: 170px 50px 0 50px;
+
+}
 .formulario{
-  display: flex; gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 80px 50px;
+  display: flex; 
+  justify-content: center; align-items: center;
+  transition: 0.3s;
+  max-height: 0; overflow: hidden;
+}
+
+
+.formulario-ativo{
+  max-height: 100vh;
+  margin-bottom: 80px;
 }
 
 .formulario form{
   flex: 1;
   background-color: #f2f2f2;
   border-radius: 20px;
+  max-width: 800px;
+  height: fit-content;
 
   padding: 36px 64px;
   box-shadow: 7px 7px 15px 0px #00000014;

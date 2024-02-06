@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Banner from './components/Banner';
-import Formulario from './components/Formulario';
+import {FormularioColaborador, FormularioTime} from './components/Formulario';
 import Time from './components/Time';
 import Rodape from './components/Rodape';
 
@@ -272,14 +272,80 @@ function App() {
     }));
   }
 
+  const [mostrarFormularioTime, setMostrarFormularioTime] = useState(false);
+  const [mostrarFormularioColaborador, setMostrarFormularioColaborador] = useState(false);
+  const [toggleBotaoAdicionarColaborador, setToggleBotaoAdicionarColaborador] = useState(false);
+  const [toggleBotaoAdicionarTime, setToggleBotaoAdicionarTime] = useState(false);
+
+  const mostraFormulario = (tipo) => {
+    if(tipo == 'time'){
+      setMostrarFormularioColaborador(false);
+      setToggleBotaoAdicionarColaborador(false)
+
+      if(mostrarFormularioColaborador==true){
+        setTimeout(() => {
+          setMostrarFormularioTime(!mostrarFormularioTime);
+        }, 300);
+      }else{
+        setMostrarFormularioTime(!mostrarFormularioTime);
+      }
+      setToggleBotaoAdicionarTime(!toggleBotaoAdicionarTime)
+    }
+    else if(tipo=='colaborador'){
+      setMostrarFormularioTime(false);
+      setToggleBotaoAdicionarTime(false)
+      if(mostrarFormularioTime == true){
+        setTimeout(() => {
+          setMostrarFormularioColaborador(!mostrarFormularioColaborador);
+        }, 300);
+      }
+      else{
+        setMostrarFormularioColaborador(!mostrarFormularioColaborador);
+      }
+      setToggleBotaoAdicionarColaborador(!toggleBotaoAdicionarColaborador)
+
+    }
+    
+  };
+
+  const visibilidadeFormularioTime = mostrarFormularioTime ? 'formulario-ativo' : '';
+  const visibilidadeFormularioColaborador = mostrarFormularioColaborador ? 'formulario-ativo' : '';
+
   return (
     <div className="App">
       <Banner />
-      <Formulario
-        cadastrarTime={cadastrarTime}
-        times={times.map(time => time.nome)}
-        aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
-      />
+      <div className='formularios_container'>
+        <FormularioColaborador
+          visibilidadeFormulario = {visibilidadeFormularioColaborador}
+          cadastrarTime={cadastrarTime}
+          times={times.map(time => time.nome)}
+          aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
+        />
+        <FormularioTime
+          visibilidadeFormulario = {visibilidadeFormularioTime}
+          cadastrarTime={cadastrarTime}
+          times={times.map(time => time.nome)}
+          aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
+        />
+      </div>
+
+      <div className='botoes-adicionar'>
+        <button
+          className={`adicionar-formulario ${toggleBotaoAdicionarColaborador ? 'adicionar-formulario-ativo' : ''}`}
+          onClick={() =>mostraFormulario('colaborador')}
+        >
+          <img src="/images/adicionarTime.png" />
+          <p>Adicionar Colaborador</p>
+        </button>
+        
+        <button
+          className={`adicionar-formulario ${toggleBotaoAdicionarTime ? 'adicionar-formulario-ativo' : ''}`}
+          onClick={() =>mostraFormulario('time')}
+        >
+          <img src="/images/adicionarTime.png" />
+          <p>Adicionar Time</p>
+        </button>
+      </div>
 
       {times.map(time =>
         <Time
@@ -294,7 +360,7 @@ function App() {
         />
       )}
       
-      <Rodape></Rodape>
+      <Rodape />
     </div>
   );
 }

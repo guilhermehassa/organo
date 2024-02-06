@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.botoes-adicionar{
+  position: absolute; right: 20px;
+  top: 600px; width: 100%;
+  display: flex; justify-content: center;
+  gap: 100px;
+
+}
+.botoes-adicionar .adicionar-formulario{
+  background-color: unset;border: none; outline: none;
+
+  border: 1px solid #6278f7;
+  width: 400px;
+  padding: 6px; padding-right: 10px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  transition: 0.2s;
+}
+
+.botoes-adicionar .adicionar-formulario-ativo{
+  background-color: #6278f7;
+  color: #fff;
+}
+
+.botoes-adicionar .adicionar-formulario img{
+  max-height: 80px; aspect-ratio: 1 / 1;
+}
+
+.botoes-adicionar .adicionar-formulario p{
+  font-size: 24px; font-weight: 700;
+}
